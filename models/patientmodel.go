@@ -35,6 +35,14 @@ func (p *PatientModel) FindAll() ([]entities.Patient, error){
 		var patient entities.Patient
 		rows.Scan(&patient.Id, &patient.Fullname, &patient.IdentityNumber, &patient.Gender, &patient.Pob, &patient.Dob, &patient.Address, &patient.Phone)
 
+		if patient.Gender == "1"{
+			patient.Gender = "Male"
+		}else if patient.Gender == "2"{
+			patient.Gender = "Female"
+		}else{
+			patient.Gender = "Other"
+		}
+
 		patients = append(patients, patient)
 	}
 
