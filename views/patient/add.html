@@ -37,8 +37,9 @@
                 type="text"
                 name="fullname"
                 id="fullname"
-                class="form-control"
+                class="form-control {{ if .validation.Fullname }} is-invalid {{ end }}"
               />
+              <div class="invalid-feedback">{{ .validation.Fullname }}</div>
             </div>
             <div class="form-group">
               <label for="identityNumber">Identity Number</label>
@@ -46,27 +47,47 @@
                 type="text"
                 name="identityNumber"
                 id="identityNumber"
-                class="form-control"
+                class="form-control {{ if .validation.IdentityNumber }} is-invalid {{ end }}"
               />
+              <div class="invalid-feedback">
+                {{ .validation.IdentityNumber }}
+              </div>
             </div>
             <div class="form-group">
               <label for="gender">Gender</label>
-              <select name="gender" id="gender" class="form-control">
+              <select
+                name="gender"
+                id="gender"
+                class="form-control {{ if .validation.Gender }} is-invalid {{ end }}"
+              >
                 <option value="">Choose Gender</option>
                 <option value="1">Male</option>
                 <option value="2">Female</option>
               </select>
+              <div class="invalid-feedback">{{ .validation.Gender }}</div>
             </div>
 
             <div class="form-group">
               <label for="pob">Place of Birth</label>
-              <input type="text" name="pob" id="pob" class="form-control" />
+              <input
+                type="text"
+                name="pob"
+                id="pob"
+                class="form-control {{ if .validation.Pob }} is-invalid {{ end }}"
+              />
+              <div class="invalid-feedback">{{ .validation.Pob }}</div>
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
               <label for="dob">Date of Birth</label>
-              <input type="date" name="dob" id="dob" class="form-control" />
+              <input
+                type="date"
+                name="dob"
+                id="dob"
+                class="form-control {{ if .validation.Dob }} is-invalid {{ end }}"
+              />
+              <div class="invalid-feedback">{{ .validation.Pob }}</div>
             </div>
             <div class="form-group">
               <label for="address">Address</label>
@@ -75,9 +96,10 @@
                 id="address"
                 cols="30"
                 rows="4"
-                class="form-control"
+                class="form-control {{ if .validation.Address }} is-invalid {{ end }}"
                 style="resize: none"
               ></textarea>
+              <div class="invalid-feedback">{{ .validation.Address }}</div>
             </div>
             <div class="form-group">
               <label for="phoneNumber">Phone Number</label>
@@ -85,8 +107,9 @@
                 type="text"
                 name="phoneNumber"
                 id="phoneNumber"
-                class="form-control"
+                class="form-control {{ if .validation.Phone }} is-invalid {{ end }}"
               />
+              <div class="invalid-feedback">{{ .validation.Phone }}</div>
             </div>
           </div>
           <div class="col-md-12">

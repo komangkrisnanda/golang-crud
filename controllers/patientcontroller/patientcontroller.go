@@ -1,13 +1,15 @@
 package patientcontroller
 
 import (
+	"html/template"
 	"net/http"
-	"text/template"
 
 	"github.com/komangkrisnanda/golang-crud-mvc/entities"
+	"github.com/komangkrisnanda/golang-crud-mvc/libraries"
 	"github.com/komangkrisnanda/golang-crud-mvc/models"
 )
 
+var validation = libraries.NewValidation()
 var patientModel = models.NewPatientModel()
 
 func Index(response http.ResponseWriter, request *http.Request){
@@ -45,11 +47,16 @@ func Add(response http.ResponseWriter, request *http.Request){
 		patient.Dob = request.Form.Get("dob")
 		patient.Address = request.Form.Get("address")
 		patient.Phone = request.Form.Get("phoneNumber")
-		
-		patientModel.Create(patient)
 
-		data := map[string]interface{}{
-			"message" : "Data successfully stored.",
+		var data = make(map[string]interface{})
+
+		vErrors := validation.Struct(patient)
+
+		if vErrors != nil {
+			data["validation"] = vErrors
+		}else{
+			data["message"] = "Data successfully stored."
+			patientModel.Create(patient)
 		}
 		
 		temp, _ := template.ParseFiles("views/patient/add.html")
