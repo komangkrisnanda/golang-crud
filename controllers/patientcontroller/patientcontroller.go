@@ -93,6 +93,10 @@ func Edit(response http.ResponseWriter, request *http.Request){
 		request.ParseForm()
 
 		var patient entities.Patient
+
+		id, _:= strconv.ParseInt(request.Form.Get("id"), 10, 64)
+
+		patient.Id = id
 		patient.Fullname = request.Form.Get("fullname")
 		patient.IdentityNumber = request.Form.Get("identityNumber")
 		patient.Gender = request.Form.Get("gender")
@@ -109,18 +113,25 @@ func Edit(response http.ResponseWriter, request *http.Request){
 			data["patient"] = patient
 			data["validation"] = vErrors
 		}else{
-			data["message"] = "Data successfully stored."
-			patientModel.Create(patient)
+			data["message"] = "Data successfully updated."
+			patientModel.Update(patient)
 		}
 		
-		temp, _ := template.ParseFiles("views/patient/add.html")
+		// temp, _ := template.ParseFiles("views/patient/index.html")
 		
-		temp.Execute(response, data)
+		// temp.Execute(response, data)
+
+		http.Redirect(response, request, "/patient", http.StatusSeeOther)	
 
 	}
 }
 
 
 func Delete(response http.ResponseWriter, request *http.Request){
-	
+	queryString := request.URL.Query()
+	id, _ := strconv.ParseInt(queryString.Get("id"), 10, 64)
+
+	patientModel.Delete(id)
+
+	http.Redirect(response, request, "/patient", http.StatusSeeOther)
 }
