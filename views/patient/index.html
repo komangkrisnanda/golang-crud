@@ -36,6 +36,30 @@
             <th>Action</th>
           </tr>
         </thead>
+        <tbody>
+          {{ range .patients}}
+          <tr>
+            <td>{{ .Fullname }}</td>
+            <td>{{ .IdentityNumber }}</td>
+            <td>{{ .Gender }}</td>
+            <td>{{ .Dob }}</td>
+            <td>{{ .Pob }}</td>
+            <td>{{ .Address }}</td>
+            <td>{{ .Phone }}</td>
+            <td>
+              <a href="/patient/edit?id={{.Id}}" class="btn btn-sm btn-warning"
+                >Edit</a
+              >
+              <a
+                href="/patient/delete?id={{.Id}}"
+                onclick="return confirm('Are you sure wants to delete this data?')"
+                class="btn btn-sm btn-danger"
+                >Delete</a
+              >
+            </td>
+          </tr>
+          {{ end }}
+        </tbody>
       </table>
     </div>
   </body>
