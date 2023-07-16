@@ -53,6 +53,7 @@ func Add(response http.ResponseWriter, request *http.Request){
 		vErrors := validation.Struct(patient)
 
 		if vErrors != nil {
+			data["patient"] = patient
 			data["validation"] = vErrors
 		}else{
 			data["message"] = "Data successfully stored."

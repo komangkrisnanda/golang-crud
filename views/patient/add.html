@@ -38,6 +38,7 @@
                 name="fullname"
                 id="fullname"
                 class="form-control {{ if .validation.Fullname }} is-invalid {{ end }}"
+                value="{{ .patient.Fullname }}"
               />
               <div class="invalid-feedback">{{ .validation.Fullname }}</div>
             </div>
@@ -48,6 +49,7 @@
                 name="identityNumber"
                 id="identityNumber"
                 class="form-control {{ if .validation.IdentityNumber }} is-invalid {{ end }}"
+                value="{{ .patient.IdentityNumber }}"
               />
               <div class="invalid-feedback">
                 {{ .validation.IdentityNumber }}
@@ -61,8 +63,8 @@
                 class="form-control {{ if .validation.Gender }} is-invalid {{ end }}"
               >
                 <option value="">Choose Gender</option>
-                <option value="1">Male</option>
-                <option value="2">Female</option>
+                <option value="1" {{ if eq .patient.Gender "1" }} selected {{ end }}>Male</option>
+                <option value="2" {{ if eq .patient.Gender "2" }} selected {{ end }}>Female</option>
               </select>
               <div class="invalid-feedback">{{ .validation.Gender }}</div>
             </div>
@@ -74,6 +76,7 @@
                 name="pob"
                 id="pob"
                 class="form-control {{ if .validation.Pob }} is-invalid {{ end }}"
+                value="{{ .patient.Pob }}"
               />
               <div class="invalid-feedback">{{ .validation.Pob }}</div>
             </div>
@@ -86,6 +89,7 @@
                 name="dob"
                 id="dob"
                 class="form-control {{ if .validation.Dob }} is-invalid {{ end }}"
+                value="{{ .patient.Dob }}"
               />
               <div class="invalid-feedback">{{ .validation.Pob }}</div>
             </div>
@@ -98,7 +102,9 @@
                 rows="4"
                 class="form-control {{ if .validation.Address }} is-invalid {{ end }}"
                 style="resize: none"
-              ></textarea>
+              >
+{{ .patient.Address }}</textarea
+              >
               <div class="invalid-feedback">{{ .validation.Address }}</div>
             </div>
             <div class="form-group">
@@ -108,6 +114,7 @@
                 name="phoneNumber"
                 id="phoneNumber"
                 class="form-control {{ if .validation.Phone }} is-invalid {{ end }}"
+                value="{{ .patient.Phone }}"
               />
               <div class="invalid-feedback">{{ .validation.Phone }}</div>
             </div>
