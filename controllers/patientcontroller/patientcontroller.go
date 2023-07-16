@@ -3,6 +3,7 @@ package patientcontroller
 import (
 	"html/template"
 	"net/http"
+	"strconv"
 
 	"github.com/komangkrisnanda/golang-crud-mvc/entities"
 	"github.com/komangkrisnanda/golang-crud-mvc/libraries"
@@ -71,7 +72,52 @@ func Add(response http.ResponseWriter, request *http.Request){
 
 
 func Edit(response http.ResponseWriter, request *http.Request){
-	
+	if request.Method == http.MethodGet {
+
+		queryString := request.URL.Query()
+		id, _ := strconv.ParseInt(queryString.Get("id"), 10, 64)
+
+		var patient entities.Patient
+		patientModel.Find(id, &patient)
+
+		data := map[string]interface{}{
+			"patient": patient,
+		}
+
+		temp, err := template.ParseFiles("views/patient/edit.html")
+		if err != nil {
+			panic(err)
+		}
+		temp.Execute(response, data)
+	}else if request.Method == http.MethodPost {
+		request.ParseForm()
+
+		var patient entities.Patient
+		patient.Fullname = request.Form.Get("fullname")
+		patient.IdentityNumber = request.Form.Get("identityNumber")
+		patient.Gender = request.Form.Get("gender")
+		patient.Pob = request.Form.Get("pob")
+		patient.Dob = request.Form.Get("dob")
+		patient.Address = request.Form.Get("address")
+		patient.Phone = request.Form.Get("phoneNumber")
+
+		var data = make(map[string]interface{})
+
+		vErrors := validation.Struct(patient)
+
+		if vErrors != nil {
+			data["patient"] = patient
+			data["validation"] = vErrors
+		}else{
+			data["message"] = "Data successfully stored."
+			patientModel.Create(patient)
+		}
+		
+		temp, _ := template.ParseFiles("views/patient/add.html")
+		
+		temp.Execute(response, data)
+
+	}
 }
 
 

@@ -60,3 +60,7 @@ func (p *PatientModel) Create(patient entities.Patient) bool{
 	lastInsertId, _ := result.LastInsertId()
 	return lastInsertId > 0
 }
+
+func (p* PatientModel) Find(id int64, patient *entities.Patient) error {
+	return p.conn.QueryRow("SELECT * FROM patients WHERE id = ?", id).Scan(&patient.Id, &patient.Fullname, &patient.IdentityNumber, &patient.Gender, &patient.Pob, &patient.Dob, &patient.Address, &patient.Phone)
+}

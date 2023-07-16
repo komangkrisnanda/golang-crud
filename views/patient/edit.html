@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+
+    <title>Golang Crud MVC - Edit Patient</title>
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h3>Edit Patient</h3>
+      <a href="/patient" class="btn btn-sm btn-primary">List Patient</a>
+      <hr />
+
+      {{ if .message }}
+      <div class="alert alert-success">{{ .message }}</div>
+      {{ end}}
+
+      <form action="/patient/edit" method="POST">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="fullname">Fullname</label>
+              <input
+                type="text"
+                name="fullname"
+                id="fullname"
+                class="form-control {{ if .validation.Fullname }} is-invalid {{ end }}"
+                value="{{ .patient.Fullname }}"
+              />
+              <div class="invalid-feedback">{{ .validation.Fullname }}</div>
+            </div>
+            <div class="form-group">
+              <label for="identityNumber">Identity Number</label>
+              <input
+                type="text"
+                name="identityNumber"
+                id="identityNumber"
+                class="form-control {{ if .validation.IdentityNumber }} is-invalid {{ end }}"
+                value="{{ .patient.IdentityNumber }}"
+              />
+              <div class="invalid-feedback">
+                {{ .validation.IdentityNumber }}
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="gender">Gender</label>
+              <select
+                name="gender"
+                id="gender"
+                class="form-control {{ if .validation.Gender }} is-invalid {{ end }}"
+              >
+                <option value="">Choose Gender</option>
+                <option value="1" {{ if eq .patient.Gender "1" }} selected {{ end }}>Male</option>
+                <option value="2" {{ if eq .patient.Gender "2" }} selected {{ end }}>Female</option>
+              </select>
+              <div class="invalid-feedback">{{ .validation.Gender }}</div>
+            </div>
+
+            <div class="form-group">
+              <label for="pob">Place of Birth</label>
+              <input
+                type="text"
+                name="pob"
+                id="pob"
+                class="form-control {{ if .validation.Pob }} is-invalid {{ end }}"
+                value="{{ .patient.Pob }}"
+              />
+              <div class="invalid-feedback">{{ .validation.Pob }}</div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="dob">Date of Birth</label>
+              <input
+                type="date"
+                name="dob"
+                id="dob"
+                class="form-control {{ if .validation.Dob }} is-invalid {{ end }}"
+                value="{{ .patient.Dob }}"
+              />
+              <div class="invalid-feedback">{{ .validation.Pob }}</div>
+            </div>
+            <div class="form-group">
+              <label for="address">Address</label>
+              <textarea
+                name="address"
+                id="address"
+                cols="30"
+                rows="4"
+                class="form-control {{ if .validation.Address }} is-invalid {{ end }}"
+                style="resize: none"
+              >
+{{ .patient.Address }}</textarea
+              >
+              <div class="invalid-feedback">{{ .validation.Address }}</div>
+            </div>
+            <div class="form-group">
+              <label for="phoneNumber">Phone Number</label>
+              <input
+                type="text"
+                name="phoneNumber"
+                id="phoneNumber"
+                class="form-control {{ if .validation.Phone }} is-invalid {{ end }}"
+                value="{{ .patient.Phone }}"
+              />
+              <div class="invalid-feedback">{{ .validation.Phone }}</div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+                <input type="hidden" name="id" value="{{ .patient.Id }}">
+              <button
+                type="reset"
+                name="cancel"
+                id="cancel"
+                class="btn btn-secondary"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                name="submit"
+                id="submit"
+                class="btn btn-primary"
+              >
+                Update Data
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
