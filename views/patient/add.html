@@ -24,6 +24,10 @@
       <a href="/patient" class="btn btn-sm btn-primary">List Patient</a>
       <hr />
 
+      {{ if .message }}
+      <div class="alert alert-success">{{ .message }}</div>
+      {{ end}}
+
       <form action="/patient/add" method="POST">
         <div class="row">
           <div class="col-md-6">
@@ -70,28 +74,40 @@
                 name="address"
                 id="address"
                 cols="30"
-                rows="5"
+                rows="4"
                 class="form-control"
                 style="resize: none"
               ></textarea>
             </div>
-
-            <button
-              type="reset"
-              name="cancel"
-              id="cancel"
-              class="btn btn-secondary"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              name="submit"
-              id="submit"
-              class="btn btn-primary"
-            >
-              Save Data
-            </button>
+            <div class="form-group">
+              <label for="phoneNumber">Phone Number</label>
+              <input
+                type="text"
+                name="phoneNumber"
+                id="phoneNumber"
+                class="form-control"
+              />
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <button
+                type="reset"
+                name="cancel"
+                id="cancel"
+                class="btn btn-secondary"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                name="submit"
+                id="submit"
+                class="btn btn-primary"
+              >
+                Save Data
+              </button>
+            </div>
           </div>
         </div>
       </form>
